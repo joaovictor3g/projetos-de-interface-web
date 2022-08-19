@@ -37,6 +37,6 @@ export const studentController = {
     if (studentsWithDeletion.length === students.length)
       return res.status(404).json({ message: "Aluno não encontrado" });
 
-    return res.json({ message: "Aluno deletado com sucesso" });
+    return res.json(studentsWithDeletion);
   },
 };
