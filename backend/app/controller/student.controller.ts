@@ -1,16 +1,30 @@
-import { students } from "../../mocks/student";
+import { students, Student } from "../../mocks/student";
 import { Request, Response } from "express";
 
 export const studentController = {
   async index(req: Request, res: Response) {
-    return res.json(students);
+    const { min_ira: minIra, max_ira: maxIra } = req.query;
+
+    let newStudents = [...students];
+
+    if (!!minIra) {
+      newStudents = newStudents.filter(
+        (student) => student.ira >= Number(minIra)
+      );
+    }
+
+    if (!!maxIra) {
+      newStudents = newStudents.filter(
+        (student) => student.ira <= Number(maxIra)
+      );
+    }
+
+    return res.json(newStudents);
   },
 
   async create(req: Request, res: Response) {
-    const { nome, email, senha, id } = req.body;
-
-    students.push({ name: nome, email, password: senha, id });
-
+    const { nome, email, senha, id, ira } = req.body;
+    students.push({ name: nome, email, password: senha, id, ira });
     return res.status(201).json({ message: "Aluno criado com sucesso!" });
   },
 

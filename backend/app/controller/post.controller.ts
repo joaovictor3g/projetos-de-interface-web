@@ -6,14 +6,6 @@ export const postController = {
     return res.json(posts);
   },
 
-  async create(req: Request, res: Response) {
-    const { texto, likes, id } = req.body;
-
-    posts.push({ texto, likes, id });
-
-    return res.status(201).json({ message: "Post criado com sucesso!" });
-  },
-
   async show(req: Request, res: Response) {
     const { id } = req.params;
 
@@ -23,6 +15,12 @@ export const postController = {
       return res.status(404).json({ message: "Post não encontrado" });
 
     return res.json(foundedPost);
+  },
+
+  async create(req: Request, res: Response) {
+    const { texto, likes, id } = req.body;
+    posts.push({ texto, likes, id });
+    return res.status(201).json({ message: "Post criado com sucesso!" });
   },
 
   async delete(req: Request, res: Response) {
