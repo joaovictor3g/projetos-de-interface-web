@@ -1,31 +1,30 @@
 import { students, Student } from "../../mocks/student";
 import { Request, Response } from "express";
+import { studentModel } from "../model/student.model";
+import { MongooseError } from "mongoose";
 
 export const studentController = {
   async index(req: Request, res: Response) {
-    const { min_ira: minIra, max_ira: maxIra } = req.query;
-
-    let newStudents = [...students];
-
-    if (!!minIra) {
-      newStudents = newStudents.filter(
-        (student) => student.ira >= Number(minIra)
-      );
-    }
-
-    if (!!maxIra) {
-      newStudents = newStudents.filter(
-        (student) => student.ira <= Number(maxIra)
-      );
-    }
-
-    return res.json(newStudents);
+    const students = await studentModel.find();
+    return res.json(students);
   },
 
   async create(req: Request, res: Response) {
-    const { nome, email, senha, id, ira } = req.body;
-    students.push({ name: nome, email, password: senha, id, ira });
-    return res.status(201).json({ message: "Aluno criado com sucesso!" });
+    const { nome, email, senha, matricula } = req.body;
+    try {
+      await studentModel.create({
+        name: nome,
+        matricula,
+        email,
+        password: senha,
+      });
+      return res.status(201).json({ message: "Aluno criado com sucesso!" });
+    } catch (err: any) {
+      return res.json({
+        message: "Erro ao criar estudante",
+        error: err?.message,
+      });
+    }
   },
 
   async show(req: Request, res: Response) {
