@@ -1,3 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 
 import { connect } from "./app/config/mongoose";
@@ -14,6 +17,6 @@ app.use(userRoutes);
 app.use(postRoutes);
 app.use(commentRoutes);
 
-connect("mongodb://localhost:27017/sistema_matricula");
+connect(process.env.MONGODB_URL);
 
 app.listen(port);
