@@ -1,15 +1,19 @@
 import express from "express";
-import studentRoute from "./app/routes/student.route";
-import postRoute from "./app/routes/post.route";
+
 import { connect } from "./app/config/mongoose";
+import { commentRoutes } from "./app/routes/comment.route";
+import { postRoutes } from "./app/routes/post.route";
+import { userRoutes } from "./app/routes/user.route";
 
 const app = express();
 const port = 3333;
 
 app.use(express.json());
-app.use(studentRoute);
-app.use(postRoute);
 
-connect("mongodb://localhost/sistema_matricula");
+app.use(userRoutes);
+app.use(postRoutes);
+app.use(commentRoutes);
+
+connect("mongodb://localhost:27017/sistema_matricula");
 
 app.listen(port);

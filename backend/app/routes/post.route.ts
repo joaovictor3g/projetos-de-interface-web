@@ -3,9 +3,9 @@ import { postController } from "../controller/post.controller";
 
 const routes = Router();
 
-routes.get("/posts", postController.index);
-routes.get("/posts/:id", postController.show);
-routes.post("/posts", postController.create);
-routes.delete("/posts/:id", postController.delete);
+routes.get("/post", postController.index);
+// routes.get("/post/:id", postController.show);
+routes.post("/post", postController.create);
+// routes.delete("/post/:id", postController.delete);
 
-export default routes;
+export { routes as postRoutes };
