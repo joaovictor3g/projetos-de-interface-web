@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { userModel } from "../model/user.model";
 import { MongooseError } from "mongoose";
 
+import bcrypt from "bcrypt";
+
 export const userController = {
   async index(req: Request, res: Response) {
     try {
@@ -20,7 +22,7 @@ export const userController = {
       await userModel.create({
         name,
         email,
-        password,
+        password: bcrypt.hashSync(password, 10),
       });
       return res.status(201).json({ message: "Usuário criado com sucesso!" });
     } catch (err: any) {

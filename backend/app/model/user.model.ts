@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+export type User = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+const userSchema = new mongoose.Schema<User>({
   name: {
     type: String,
     required: true,
