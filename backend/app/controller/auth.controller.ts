@@ -14,12 +14,12 @@ export const authController = {
         return res.status(404).json({ message: "Usuário inexistente" });
 
       if (!bcrypt.compareSync(password, user.password)) {
-        return res.status(401).json({ message: "Invalid login" });
+        return res.status(401).json({ message: "Login/Senha incorretos" });
       }
       const token = jwt.sign({ user }, process.env.JWT_SECRET);
       return res.status(200).json({ message: "ok", token });
     } catch {
-      return res.status(401).json({ message: "Invalid login" });
+      return res.status(401).json({ message: "Erro ao validar informações" });
     }
   },
 
