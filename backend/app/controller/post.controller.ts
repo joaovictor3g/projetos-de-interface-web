@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import { MongooseError } from "mongoose";
+import { MongoPost } from "../@types/post";
 import { postModel } from "../model/post.model";
+import { postViewRender, postViewRenderMany } from "../view/post.view";
 
 export const postController = {
   async index(req: Request, res: Response) {
     try {
-      const posts = await postModel.find();
-      return res.json(posts);
+      const posts = await postModel.find<MongoPost>();
+      return res.json(postViewRenderMany(posts));
     } catch {}
   },
 
@@ -25,11 +27,11 @@ export const postController = {
   async show(req: Request, res: Response) {
     const { id } = req.params;
     try {
-      const post = await postModel.findOne({ _id: id });
+      const post = await postModel.findOne<MongoPost>({ _id: id });
 
       if (!post)
         return res.status(404).json({ message: "Post não encontrado" });
-      return res.json(post);
+      return res.json(postViewRender(post));
     } catch (error: unknown) {
       if (error instanceof MongooseError)
         return res.json({

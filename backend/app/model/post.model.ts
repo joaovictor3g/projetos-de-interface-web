@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { Post } from "../@types/post";
 
 const postSchema = new Schema({
   text: {

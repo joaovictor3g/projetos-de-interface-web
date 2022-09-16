@@ -3,12 +3,14 @@ import { userModel } from "../model/user.model";
 import { MongooseError } from "mongoose";
 
 import bcrypt from "bcrypt";
+import { userViewRender, userViewRenderMany } from "../view/user.view";
+import { MongoUser } from "../@types/user";
 
 export const userController = {
   async index(req: Request, res: Response) {
     try {
-      const users = await userModel.find();
-      return res.json(users);
+      const users = await userModel.find<MongoUser>();
+      return res.json(userViewRenderMany(users));
     } catch (error: unknown) {
       if (error instanceof MongooseError)
         return res.json({ message: "Erro ao buscar!", error: error.message });
@@ -18,12 +20,14 @@ export const userController = {
 
   async create(req: Request, res: Response) {
     const { name, email, password } = req.body;
+
     try {
       await userModel.create({
         name,
         email,
         password: bcrypt.hashSync(password, 10),
       });
+
       return res.status(201).json({ message: "Usuário criado com sucesso!" });
     } catch (err: any) {
       return res.json({
@@ -36,12 +40,12 @@ export const userController = {
   async show(req: Request, res: Response) {
     const { id } = req.params;
 
-    const foundedUser = await userModel.findOne({ _id: id });
+    const foundedUser = await userModel.findOne<MongoUser>({ _id: id });
 
     if (!foundedUser)
       return res.status(404).json({ message: "Usuário não encontrado" });
 
-    return res.json(foundedUser);
+    return res.json(userViewRender(foundedUser));
   },
 
   async delete(req: Request, res: Response) {

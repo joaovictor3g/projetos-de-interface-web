@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import { MongooseError } from "mongoose";
+import { MongoComment } from "../@types/comment";
 import { commentModel } from "../model/comment.model";
+import { commentViewRender, commentViewRenderMany } from "../view/comment.view";
 
 export const commentController = {
   async index(req: Request, res: Response) {
     try {
       const comments = await commentModel
-        .find()
+        .find<MongoComment>()
         .populate("user")
         .populate("post");
-      return res.json(comments);
+      return res.json(commentViewRenderMany(comments));
     } catch {}
   },
 
@@ -30,14 +32,14 @@ export const commentController = {
     const { id } = req.params;
     try {
       const comment = await commentModel
-        .findOne({ _id: id })
+        .findOne<MongoComment>({ _id: id })
         .populate("user")
         .populate("post");
 
       if (!comment)
         return res.status(404).json({ message: "Comentário não encontrado" });
 
-      return res.json(comment);
+      return res.json(commentViewRender(comment));
     } catch (error: unknown) {
       if (error instanceof MongooseError)
         return res.json({

@@ -1,10 +1,5 @@
 import mongoose from "mongoose";
-
-export type User = {
-  name: string;
-  email: string;
-  password: string;
-};
+import { User } from "../@types/user";
 
 const userSchema = new mongoose.Schema<User>({
   name: {
