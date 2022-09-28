@@ -1,10 +1,9 @@
-import { Request, Response } from "express";
-import { userModel } from "../model/user.model";
-import { MongooseError } from "mongoose";
-
 import bcrypt from "bcrypt";
-import { userViewRender, userViewRenderMany } from "../view/user.view";
+import { Request, Response } from "express";
+import { MongooseError } from "mongoose";
 import { MongoUser } from "../@types/user";
+import { userModel } from "../model/user.model";
+import { userViewRender, userViewRenderMany } from "../view/user.view";
 
 export const userController = {
   async index(req: Request, res: Response) {
@@ -29,11 +28,15 @@ export const userController = {
       });
 
       return res.status(201).json({ message: "Usuário criado com sucesso!" });
-    } catch (err: any) {
-      return res.json({
-        message: "Erro ao criar usuário",
-        error: err?.message,
-      });
+    } catch (err: unknown) {
+      if (err instanceof MongooseError) {
+        return res.json({
+          message: "Erro ao criar usuário",
+          error: err?.message,
+        });
+      }
+
+      return res.json({ message: "Erro ao criar usuário" });
     }
   },
 

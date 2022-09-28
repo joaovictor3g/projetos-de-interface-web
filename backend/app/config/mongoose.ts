@@ -8,8 +8,8 @@ export function connect(uri: string) {
   mongoose.connection.on("disconnected", () =>
     console.log("Mongoose! Desconectado de " + uri)
   );
-  mongoose.connection.on("error", (erro) =>
-    console.log("Mongoose! Erro na conexão: " + erro)
+  mongoose.connection.on("error", (error) =>
+    console.log("Mongoose! Erro na conexão: " + error)
   );
   mongoose.set("debug", true);
 }

@@ -11,17 +11,20 @@ export const commentController = {
         .find<MongoComment>()
         .populate("user")
         .populate("post");
+
       return res.json(commentViewRenderMany(comments));
     } catch {}
   },
 
   async create(req: Request, res: Response) {
     const { user, post } = req.body;
+
     try {
       await commentModel.create({
         user,
         post,
       });
+
       return res
         .status(201)
         .json({ message: "Comentário criada com sucesso!" });
@@ -41,11 +44,12 @@ export const commentController = {
 
       return res.json(commentViewRender(comment));
     } catch (error: unknown) {
-      if (error instanceof MongooseError)
+      if (error instanceof MongooseError) {
         return res.json({
           message: "Erro ao buscar comentário!",
           error: error.message,
         });
+      }
       return res.json({
         message: "Erro ao buscar comment!",
       });
@@ -62,11 +66,12 @@ export const commentController = {
 
       return res.json({ message: `Comentário ${id} deletado com sucesso` });
     } catch (error: unknown) {
-      if (error instanceof MongooseError)
+      if (error instanceof MongooseError) {
         return res.json({
           message: "Erro ao buscar comentário!",
           error: error.message,
         });
+      }
 
       return res.json({
         message: "Erro ao buscar comentário!",
