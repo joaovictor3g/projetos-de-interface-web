@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsnd --watch --ignore-watch node_modules main.ts",
+    "dev": "tsnd --watch --ignore-watch node_modules --transpile-only main.ts",
     "build": "tsc --outDir ./dist",
     "start": "node dist/main.js"
   },
