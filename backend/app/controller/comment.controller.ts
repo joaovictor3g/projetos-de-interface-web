@@ -4,6 +4,9 @@ import { MongoComment } from "../@types/comment";
 import { commentModel } from "../model/comment.model";
 import { commentViewRender, commentViewRenderMany } from "../view/comment.view";
 
+import jwt from "jsonwebtoken";
+import { MongoUser } from "../@types/user";
+
 export const commentController = {
   async index(req: Request, res: Response) {
     try {
@@ -17,11 +20,13 @@ export const commentController = {
   },
 
   async create(req: Request, res: Response) {
-    const { user, post } = req.body;
+    const { post } = req.body;
+    const { token } = req.headers;
+    const { user } = jwt.decode(token as string) as { user: MongoUser };
 
     try {
       await commentModel.create({
-        user,
+        user: user._id,
         post,
       });
 
@@ -58,8 +63,13 @@ export const commentController = {
 
   async delete(req: Request, res: Response) {
     const { id } = req.params;
+    const { token } = req.headers;
+    const { user } = jwt.decode(token as string) as { user: MongoUser };
+
     try {
-      const comment = await commentModel.deleteOne({ _id: id });
+      const comment = await commentModel.deleteOne({
+        $and: [{ _id: id }, { user: user._id }],
+      });
 
       if (comment.deletedCount !== 1)
         return res.status(404).json({ message: "Comentário não deletado" });

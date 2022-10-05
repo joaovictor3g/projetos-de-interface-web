@@ -4,6 +4,9 @@ import { MongoPost } from "../@types/post";
 import { postModel } from "../model/post.model";
 import { postViewRender, postViewRenderMany } from "../view/post.view";
 
+import jwt from "jsonwebtoken";
+import { MongoUser } from "../@types/user";
+
 export const postController = {
   async index(req: Request, res: Response) {
     try {
@@ -13,15 +16,20 @@ export const postController = {
   },
 
   async create(req: Request, res: Response) {
-    const { text, likes, user } = req.body;
+    const { text, likes } = req.body;
+    const { token } = req.headers;
+    const { user } = jwt.decode(token as string) as { user: MongoUser };
+
     try {
       await postModel.create({
         text,
         likes,
-        user,
+        user: user._id,
       });
       return res.status(201).json({ message: "Post criado com sucesso!" });
-    } catch {}
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   async show(req: Request, res: Response) {
@@ -46,8 +54,13 @@ export const postController = {
 
   async delete(req: Request, res: Response) {
     const { id } = req.params;
+    const { token } = req.headers;
+    const { user } = jwt.decode(token as string) as { user: MongoUser };
+
     try {
-      const post = await postModel.deleteOne({ _id: id });
+      const post = await postModel.deleteOne({
+        $and: [{ user: user._id }, { _id: id }],
+      });
 
       if (post.deletedCount !== 1)
         return res.status(404).json({ message: "Post não deletado" });
