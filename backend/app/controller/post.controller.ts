@@ -17,14 +17,13 @@ export const postController = {
 
   async create(req: Request, res: Response) {
     const { text, likes } = req.body;
-    const { token } = req.headers;
-    const { user } = jwt.decode(token as string) as { user: MongoUser };
+    const userId = req.userId;
 
     try {
       await postModel.create({
         text,
         likes,
-        user: user._id,
+        user: userId,
       });
       return res.status(201).json({ message: "Post criado com sucesso!" });
     } catch (err) {
@@ -54,12 +53,11 @@ export const postController = {
 
   async delete(req: Request, res: Response) {
     const { id } = req.params;
-    const { token } = req.headers;
-    const { user } = jwt.decode(token as string) as { user: MongoUser };
+    const userId = req.userId;
 
     try {
       const post = await postModel.deleteOne({
-        $and: [{ user: user._id }, { _id: id }],
+        $and: [{ user: userId }, { _id: id }],
       });
 
       if (post.deletedCount !== 1)

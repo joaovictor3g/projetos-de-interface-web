@@ -1,7 +1,8 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, request, Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { userModel } from "../model/user.model";
 import jwt from "jsonwebtoken";
+import { MongoUser } from "../@types/user";
 
 export const authController = {
   async index(req: Request, res: Response) {
@@ -26,13 +27,14 @@ export const authController = {
   async check(req: Request, res: Response, next: NextFunction) {
     const { token } = req.headers;
 
-    jwt.verify(token as string, process.env.JWT_SECRET, (error) => {
+    jwt.verify(token as string, process.env.JWT_SECRET, (error, decoded) => {
       if (error) {
         return res
           .status(401)
           .json({ message: "Usuário não autenticado", error: error.message });
       }
-
+      const { user } = decoded as { user: MongoUser };
+      request.userId = user._id;
       next();
     });
   },

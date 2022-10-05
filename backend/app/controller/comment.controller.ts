@@ -21,12 +21,11 @@ export const commentController = {
 
   async create(req: Request, res: Response) {
     const { post } = req.body;
-    const { token } = req.headers;
-    const { user } = jwt.decode(token as string) as { user: MongoUser };
+    const userId = req.userId;
 
     try {
       await commentModel.create({
-        user: user._id,
+        user: userId,
         post,
       });
 
@@ -63,12 +62,11 @@ export const commentController = {
 
   async delete(req: Request, res: Response) {
     const { id } = req.params;
-    const { token } = req.headers;
-    const { user } = jwt.decode(token as string) as { user: MongoUser };
+    const userId = req.userId;
 
     try {
       const comment = await commentModel.deleteOne({
-        $and: [{ _id: id }, { user: user._id }],
+        $and: [{ _id: id }, { user: userId }],
       });
 
       if (comment.deletedCount !== 1)
