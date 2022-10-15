@@ -1,7 +1,7 @@
 import { GlobalStyle, theme } from "@/styles";
 import { ThemeProvider } from "styled-components";
 import { Header } from "@/components/shared/Header";
-import { Home } from "@/pages/Home";
+import { RouterProvider } from "./routes";
 
 export function App() {
   return (
@@ -9,7 +9,7 @@ export function App() {
       <GlobalStyle />
       <Header />
       <main>
-        <Home />
+        <RouterProvider />
       </main>
     </ThemeProvider>
   );
