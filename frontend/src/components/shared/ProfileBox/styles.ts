@@ -9,6 +9,7 @@ export const ProfileBoxContainer = styled.div`
   background-size: 100% 72px;
   max-width: 300px;
   width: 100%;
+  max-height: 294px;
 
   border-radius: 8px;
 
