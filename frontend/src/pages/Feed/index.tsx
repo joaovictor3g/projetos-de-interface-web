@@ -1,5 +1,10 @@
+import { ProfileBox } from "@/components/shared/ProfileBox";
 import { FeedContainer } from "./styles";
 
 export function Feed() {
-  return <FeedContainer>Feed</FeedContainer>;
+  return (
+    <FeedContainer>
+      <ProfileBox />
+    </FeedContainer>
+  );
 }
