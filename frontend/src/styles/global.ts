@@ -11,4 +11,16 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     background-color: ${({ theme }) => theme.colors.gray1};
   }
+
+  body, input, button {
+    font-family: Roboto, sans-serif;
+  }
+
+  button {
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
 `;

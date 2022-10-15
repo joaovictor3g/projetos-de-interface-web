@@ -1,3 +1,5 @@
+import { css } from "styled-components";
+
 export const theme = {
   colors: {
     green: "#00875F",
@@ -12,5 +14,14 @@ export const theme = {
     gray7: "#E1E1E6",
 
     white: "#FFFFFF",
+  },
+
+  customs: {
+    wrapper: () => css`
+      max-width: 1200px;
+      width: 100%;
+      padding: 1rem;
+      margin: 0 auto;
+    `,
   },
 } as const;
