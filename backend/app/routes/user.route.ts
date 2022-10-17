@@ -7,7 +7,9 @@ const routes = Router();
 routes.post("/user", userController.create);
 routes.use("/user", authController.check);
 routes.get("/user", userController.index);
-routes.get("/user/:id", userController.show);
 routes.delete("/user/:id", userController.delete);
+
+routes.use("/user-by-id", authController.check);
+routes.get("/user-by-id", userController.show);
 
 export { routes as userRoutes };

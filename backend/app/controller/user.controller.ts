@@ -41,9 +41,9 @@ export const userController = {
   },
 
   async show(req: Request, res: Response) {
-    const { id } = req.params;
+    const { userId } = req;
 
-    const foundedUser = await userModel.findOne<MongoUser>({ _id: id });
+    const foundedUser = await userModel.findOne<MongoUser>({ _id: userId });
 
     if (!foundedUser)
       return res.status(404).json({ message: "Usuário não encontrado" });
