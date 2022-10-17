@@ -1,3 +1,4 @@
+import { Textarea } from "@/components/layout/Form/Textarea";
 import { Avatar } from "../Avatar";
 import { PostContainer } from "./styles";
 
@@ -20,8 +21,10 @@ export function Post() {
       <footer>
         <form>
           <div className="control">
-            <label>Deixe seu feedback</label>
-            <textarea placeholder="Escreva um comentário..." />
+            <Textarea
+              placeholder="Escreva um comentário..."
+              label="Deixe seu feedback:"
+            />
           </div>
 
           <button type="submit">Publicar</button>

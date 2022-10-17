@@ -38,43 +38,6 @@ export const PostContainer = styled.div`
       flex-direction: column;
       gap: 1rem;
 
-      .control {
-        display: flex;
-        flex-direction: column;
-
-        label {
-          font-weight: 700;
-          font-size: 1rem;
-          line-height: 160%;
-          color: ${({ theme }) => theme.colors.gray7};
-        }
-      }
-
-      textarea {
-        resize: vertical;
-        min-width: 200px;
-        background: ${({ theme }) => theme.colors.gray1};
-        border: 0;
-        border-radius: 8px;
-        height: 50px;
-        padding: 1rem;
-        min-height: 100px;
-
-        font-weight: 400;
-        font-size: 1rem;
-        line-height: 140%;
-        color: ${({ theme }) => theme.colors.gray6};
-
-        &::placeholder {
-          color: ${({ theme }) => theme.colors.gray4};
-        }
-
-        &:focus {
-          border: 1px solid ${({ theme }) => theme.colors.greenLight};
-          outline: 1px solid ${({ theme }) => theme.colors.greenLight};
-        }
-      }
-
       button {
         border-radius: 8px;
         background-color: ${({ theme }) => theme.colors.green};
