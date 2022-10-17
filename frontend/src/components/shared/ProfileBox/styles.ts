@@ -13,7 +13,7 @@ export const ProfileWrapper = styled.div`
   background-size: 100% 72px;
   max-width: 300px;
   width: 100%;
-  max-height: 320px;
+  max-height: max-content;
 
   border-radius: 8px;
 

@@ -21,16 +21,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const token = getToken();
-
-    if (token) {
-      api
-        .get("/user-by-id")
-        .then((response) => setUser(response.data))
-        .catch((err: unknown) => {
-          // console.log(err);
-        });
-    }
+    api
+      .get("/user-by-id")
+      .then((response) => setUser(response.data))
+      .catch((err: unknown) => {});
   }, []);
 
   return (

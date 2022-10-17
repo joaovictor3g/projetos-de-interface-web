@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ReactMarkdown from "react-markdown";
 
 export const PostContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.gray2};
@@ -37,6 +38,20 @@ export const PostContainer = styled.div`
       display: flex;
       flex-direction: column;
       gap: 1rem;
+    }
+  }
+`;
+
+export const Markdown = styled(ReactMarkdown)`
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 160%;
+  color: ${({ theme }) => theme.colors.white};
+
+  code {
+    span {
+      font-family: "Fira Code";
     }
   }
 `;
