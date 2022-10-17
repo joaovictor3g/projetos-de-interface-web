@@ -27,7 +27,7 @@ export const CreatePostButton = styled.button`
 `;
 
 export const ModalContent = styled.div`
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.gray2};
   position: fixed;
@@ -46,5 +46,18 @@ export const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
+
+    .control {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      label {
+        color: ${({ theme }) => theme.colors.white};
+        font-weight: 700;
+        font-size: 1rem;
+        line-height: 160%;
+      }
+    }
   }
 `;

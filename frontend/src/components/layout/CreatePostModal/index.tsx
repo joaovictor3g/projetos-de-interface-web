@@ -3,6 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Modal } from "@/components/shared/Modal";
 import { Textarea, Input, Submit } from "../Form";
+import { MdEditor } from "../MdEditor";
 
 export function CreatePostModal() {
   return (
@@ -20,10 +21,10 @@ export function CreatePostModal() {
 
           <form>
             <Input label="Assunto do post:" placeholder="Uma breve descrição" />
-            <Textarea
-              label="Escreva seu post:"
-              placeholder="Escreva o post aqui"
-            />
+            <div className="control">
+              <label htmlFor="">Escreva seu post:</label>
+              <MdEditor />
+            </div>
             <Submit>Criar novo post</Submit>
           </form>
         </ModalContent>
