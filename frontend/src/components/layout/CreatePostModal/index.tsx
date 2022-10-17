@@ -1,4 +1,4 @@
-import { CreatePostButton, DialogContent, ModalContent } from "./styles";
+import { CreatePostButton, ModalContent } from "./styles";
 import * as Dialog from "@radix-ui/react-dialog";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Modal } from "@/components/shared/Modal";
@@ -9,7 +9,8 @@ export function CreatePostModal() {
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <CreatePostButton>
-          <PlusIcon color="#ffffff" width={24} height={24} />
+          <PlusIcon width={24} height={24} />
+          <span>Criar novo post</span>
         </CreatePostButton>
       </Dialog.Trigger>
 

@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.gray1};
   }
 
-  body, input, button {
+  body, input, button, textarea {
     font-family: Roboto, sans-serif;
   }
 

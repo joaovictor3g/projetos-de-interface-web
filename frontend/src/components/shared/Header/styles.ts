@@ -6,6 +6,10 @@ export const HeaderContainer = styled.header`
   background-color: ${({ theme }) => theme.colors.gray2};
 `;
 
+export const HeaderFixedWrapper = styled(HeaderContainer)`
+  position: fixed;
+`;
+
 export const HeaderWrapper = styled.div`
   ${({ theme }) => theme.customs.wrapper};
   display: flex;

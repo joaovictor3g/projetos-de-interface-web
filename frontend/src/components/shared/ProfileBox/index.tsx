@@ -1,20 +1,24 @@
 import { Avatar } from "../Avatar";
-import { ProfileBoxContainer } from "./styles";
+import { ProfileBoxContainer, ProfileWrapper } from "./styles";
 import { Edit } from "@/icons/Edit";
 import { useAuth } from "@/hooks/useAuth";
+import { CreatePostModal } from "@/components/layout/CreatePostModal";
 
 export function ProfileBox() {
   const { user } = useAuth();
 
   return (
     <ProfileBoxContainer>
-      <Avatar direction="vertical" user={user} />
-      <div className="edit-profile">
-        <button>
-          <Edit />
-          Editar seu perfil
-        </button>
-      </div>
+      <ProfileWrapper>
+        <Avatar direction="vertical" user={user} />
+        <div className="button-group">
+          <button className="edit-button">
+            <Edit />
+            Editar seu perfil
+          </button>
+          <CreatePostModal />
+        </div>
+      </ProfileWrapper>
     </ProfileBoxContainer>
   );
 }

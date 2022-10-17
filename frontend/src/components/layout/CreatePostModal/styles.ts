@@ -1,26 +1,29 @@
 import styled from "styled-components";
-import * as Dialog from "@radix-ui/react-dialog";
 
 export const CreatePostContainer = styled.div`
   ${({ theme }) => theme.customs.wrapper};
-  position: relative;
 `;
 
 export const CreatePostButton = styled.button`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-
-  background-color: ${({ theme }) => theme.colors.green};
-
-  position: fixed;
-  bottom: 1rem;
+  width: 100%;
   border: 0;
-  transition: width 0.3s, border-radius 0.3s;
+  background-color: ${({ theme }) => theme.colors.green};
+  padding: 1rem;
+  border-radius: 8px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 19px;
+
+  &:hover {
+    filter: brightness(0.7);
+  }
 `;
 
 export const ModalContent = styled.div`

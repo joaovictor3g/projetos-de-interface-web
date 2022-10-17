@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import bannerImg from "./banner.png";
 
-export const ProfileBoxContainer = styled.div`
+export const ProfileBoxContainer = styled.div``;
+
+export const ProfileWrapper = styled.div`
+  position: fixed;
+
   background-image: url(${bannerImg});
   background-position: top;
   background-repeat: no-repeat;
@@ -9,7 +13,7 @@ export const ProfileBoxContainer = styled.div`
   background-size: 100% 72px;
   max-width: 300px;
   width: 100%;
-  max-height: 294px;
+  max-height: 320px;
 
   border-radius: 8px;
 
@@ -22,16 +26,18 @@ export const ProfileBoxContainer = styled.div`
     margin-top: 36px;
   }
 
-  .edit-profile {
+  .button-group {
     width: 100%;
     border-top: 1px solid ${({ theme }) => theme.colors.gray3};
     padding: 1.5rem;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
 
-    button {
+    .edit-button {
       display: flex;
       align-items: center;
       justify-content: center;
