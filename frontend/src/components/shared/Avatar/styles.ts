@@ -1,12 +1,18 @@
 import styled from "styled-components";
 
-export const AvatarContainer = styled.div`
+interface AvatarContainerProps {
+  $bordered?: boolean;
+}
+
+export const AvatarContainer = styled.div<AvatarContainerProps>`
   .image-wrapper {
-    padding: 5px;
-    border: 2px solid ${({ theme }) => theme.colors.greenLight};
+    padding: ${({ $bordered }) => ($bordered ? "5px" : 0)};
+    border: ${({ theme, $bordered }) =>
+      $bordered ? `2px solid ${theme.colors.greenLight}` : "0"};
     width: max-content;
     border-radius: 8px;
-    background-color: ${({ theme }) => theme.colors.gray1};
+    background-color: ${({ theme, $bordered }) =>
+      $bordered ? theme.colors.gray1 : "transparent"};
     display: flex;
     align-items: center;
     justify-content: center;

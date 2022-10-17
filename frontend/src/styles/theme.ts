@@ -13,6 +13,8 @@ export const theme = {
     gray6: "#C4C4CC",
     gray7: "#E1E1E6",
 
+    red: "#F75A68",
+
     white: "#FFFFFF",
   },
 

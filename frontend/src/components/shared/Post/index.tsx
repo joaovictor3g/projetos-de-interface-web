@@ -8,6 +8,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { IPost } from "@/@types/post";
 import { difference as differenceToCreatedAt } from "@/utils/date";
+import { Comment } from "./Comment";
 interface PostProps {
   data: IPost;
 }
@@ -62,6 +63,8 @@ export function Post({ data }: PostProps) {
 
           <Submit>Publicar</Submit>
         </form>
+
+        <Comment />
       </footer>
     </PostContainer>
   );
