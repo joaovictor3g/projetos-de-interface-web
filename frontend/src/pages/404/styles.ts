@@ -7,7 +7,7 @@ export const NotFoundContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: calc(100vh - 100px);
+  min-height: ${({ theme }) => ` calc(100vh - ${theme.customs.header.height})`};
   background-image: url(${bg404});
   background-repeat: no-repeat;
   background-position: center;

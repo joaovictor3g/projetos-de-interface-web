@@ -1,8 +1,8 @@
 import { GlobalStyle, theme } from "@/styles";
 import { ThemeProvider } from "styled-components";
 import { Header } from "@/components/shared/Header";
-import { RouterProvider } from "./routes";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { Outlet } from "react-router-dom";
 
 export function App() {
   return (
@@ -11,7 +11,7 @@ export function App() {
         <GlobalStyle />
         <Header />
         <main>
-          <RouterProvider />
+          <Outlet />
         </main>
       </ThemeProvider>
     </AuthContextProvider>

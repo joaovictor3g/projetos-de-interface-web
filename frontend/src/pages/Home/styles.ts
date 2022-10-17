@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.section`
   ${({ theme }) => theme.customs.wrapper};
-  min-height: calc(100vh - 100px);
+  min-height: ${({ theme }) => ` calc(100vh - ${theme.customs.header.height})`};
 
   display: flex;
   align-items: center;

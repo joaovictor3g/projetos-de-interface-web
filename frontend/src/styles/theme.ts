@@ -23,5 +23,9 @@ export const theme = {
       padding: 1rem;
       margin: 0 auto;
     `,
+
+    header: {
+      height: `70px`,
+    },
   },
 } as const;

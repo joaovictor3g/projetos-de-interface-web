@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
   width: 100%;
-  height: 100px;
+  height: ${({ theme }) => theme.customs.header.height};
   background-color: ${({ theme }) => theme.colors.gray2};
 `;
 
@@ -11,8 +11,11 @@ export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: inherit;
+  padding: 0.5rem 1rem;
 
   img {
+    height: 50px;
     object-fit: contain;
   }
 `;
