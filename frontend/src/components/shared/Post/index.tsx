@@ -1,3 +1,4 @@
+import { Submit } from "@/components/layout/Form";
 import { Textarea } from "@/components/layout/Form/Textarea";
 import { Avatar } from "../Avatar";
 import { PostContainer } from "./styles";
@@ -27,7 +28,7 @@ export function Post() {
             />
           </div>
 
-          <button type="submit">Publicar</button>
+          <Submit>Publicar</Submit>
         </form>
       </footer>
     </PostContainer>

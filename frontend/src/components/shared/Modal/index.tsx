@@ -1,16 +1,16 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { ReactNode } from "react";
-import { DialogOverlay, DialogPortal } from "./styles";
+import { DialogOverlay } from "./styles";
 
-interface ModalProps {
+interface ModalProps extends Dialog.DialogContentProps {
   children: ReactNode;
 }
 
-export function Modal({ children }: ModalProps) {
+export function Modal({ children, ...props }: ModalProps) {
   return (
-    <DialogPortal>
+    <Dialog.Portal>
       <DialogOverlay />
-      <Dialog.Content>{children}</Dialog.Content>
-    </DialogPortal>
+      <Dialog.Content {...props}>{children}</Dialog.Content>
+    </Dialog.Portal>
   );
 }

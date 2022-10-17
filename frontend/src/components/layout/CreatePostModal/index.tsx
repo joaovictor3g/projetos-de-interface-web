@@ -1,9 +1,8 @@
-import { CreatePostContainer, CreatePostButton, DialogContent } from "./styles";
+import { CreatePostButton, DialogContent, ModalContent } from "./styles";
 import * as Dialog from "@radix-ui/react-dialog";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Modal } from "@/components/shared/Modal";
-import { Textarea } from "../Form/Textarea";
-import { Input } from "../Form/Input";
+import { Textarea, Input, Submit } from "../Form";
 
 export function CreatePostModal() {
   return (
@@ -15,7 +14,7 @@ export function CreatePostModal() {
       </Dialog.Trigger>
 
       <Modal>
-        <DialogContent>
+        <ModalContent>
           <h1>Criar um novo post</h1>
 
           <form>
@@ -24,8 +23,9 @@ export function CreatePostModal() {
               label="Escreva seu post:"
               placeholder="Escreva o post aqui"
             />
+            <Submit>Criar novo post</Submit>
           </form>
-        </DialogContent>
+        </ModalContent>
       </Modal>
     </Dialog.Root>
   );

@@ -23,7 +23,7 @@ export const CreatePostButton = styled.button`
   justify-content: center;
 `;
 
-export const DialogContent = styled(Dialog.Content)`
+export const ModalContent = styled.div`
   max-width: 500px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.gray2};
