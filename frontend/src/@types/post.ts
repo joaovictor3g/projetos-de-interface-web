@@ -1,6 +1,9 @@
+import { User } from "./user";
+
 export interface IPost {
   id: string;
   likes: string;
   text: string;
-  user: string;
+  createdAt: Date;
+  user: User;
 }

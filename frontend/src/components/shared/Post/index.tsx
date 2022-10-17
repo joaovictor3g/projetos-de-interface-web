@@ -7,17 +7,20 @@ import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { IPost } from "@/@types/post";
-
+import { difference as differenceToCreatedAt } from "@/utils/date";
 interface PostProps {
   data: IPost;
 }
 
 export function Post({ data }: PostProps) {
+  const { createdAt } = data;
+  const formattedCreatedAt = differenceToCreatedAt(new Date(createdAt));
+
   return (
     <PostContainer>
       <header>
-        <Avatar user={null} />
-        <time>Publicado há 1h</time>
+        <Avatar user={data.user} />
+        <time>{formattedCreatedAt}</time>
       </header>
 
       <div className="content">
