@@ -48,6 +48,24 @@ export const Markdown = styled(ReactMarkdown)`
   font-size: 1rem;
   line-height: 160%;
   color: ${({ theme }) => theme.colors.white};
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.greenLight};
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 160%;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.white};
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 160%;
+  }
 
   code {
     span {

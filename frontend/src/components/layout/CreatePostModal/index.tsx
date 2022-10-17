@@ -4,8 +4,26 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import { Modal } from "@/components/shared/Modal";
 import { Textarea, Input, Submit } from "../Form";
 import { MdEditor } from "../MdEditor";
+import { FormEvent, useState } from "react";
+import { api } from "@/services/api";
 
 export function CreatePostModal() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+
+    const data = {
+      text: content,
+      likes: 0,
+    };
+
+    try {
+      await api.post("post", data);
+    } catch (error) {}
+  }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -19,11 +37,14 @@ export function CreatePostModal() {
         <ModalContent>
           <h1>Criar um novo post</h1>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <Input label="Assunto do post:" placeholder="Uma breve descrição" />
             <div className="control">
               <label htmlFor="">Escreva seu post:</label>
-              <MdEditor />
+              <MdEditor
+                value={content}
+                onChange={(value) => setContent(value as string)}
+              />
             </div>
             <Submit>Criar novo post</Submit>
           </form>

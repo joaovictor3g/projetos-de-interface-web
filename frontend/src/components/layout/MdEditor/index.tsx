@@ -1,9 +1,12 @@
 import UIWMDEditor from "@uiw/react-md-editor";
-import { useState } from "react";
 import { MDEditorContainer } from "./styles";
 
-export function MdEditor() {
-  const [value, setValue] = useState("");
+interface MdEditorProps {
+  value: string;
+  onChange: (value?: string) => void;
+}
+
+export function MdEditor({ onChange, value }: MdEditorProps) {
 
   return (
     <MDEditorContainer>
@@ -11,7 +14,7 @@ export function MdEditor() {
         defaultTabEnable
         placeholder="Escreva seu post aqui"
         value={value}
-        onChange={(value) => setValue(value)}
+        onChange={onChange}
         className="uiw-mdeditor"
       />
     </MDEditorContainer>

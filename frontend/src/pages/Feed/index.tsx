@@ -1,23 +1,23 @@
+import { IPost } from "@/@types/post";
 import { Post } from "@/components/shared/Post";
 import { ProfileBox } from "@/components/shared/ProfileBox";
 import { api } from "@/services/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FeedContainer } from "./styles";
 
 export function Feed() {
+  const [posts, setPosts] = useState<IPost[]>([]);
   useEffect(() => {
-    api.get("user").then((response) => console.log(response.data));
+    api.get("post").then((response) => setPosts(response.data));
   }, []);
 
   return (
     <FeedContainer>
       <ProfileBox />
       <div className="posts-wrapper">
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        {posts.map((post) => (
+          <Post key={post.id} data={post} />
+        ))}
       </div>
     </FeedContainer>
   );

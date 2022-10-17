@@ -6,8 +6,13 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { IPost } from "@/@types/post";
 
-export function Post() {
+interface PostProps {
+  data: IPost;
+}
+
+export function Post({ data }: PostProps) {
   return (
     <PostContainer>
       <header>
@@ -17,9 +22,7 @@ export function Post() {
 
       <div className="content">
         <Markdown
-          children={
-            "Fala galeraa 👋 Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀 <a>👉 jane.design/doctorcare</a> #novoprojeto"
-          }
+          children={data.text}
           remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
           rehypePlugins={[rehypeRaw]}
           components={{
