@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.9",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-icons": "^1.1.1",
     "@uiw/react-md-editor": "^3.19.0",
@@ -16,12 +17,14 @@
     "dayjs": "^1.11.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.38.0",
     "react-markdown": "^8.0.3",
     "react-router-dom": "^6.4.2",
     "react-syntax-highlighter": "^15.5.0",
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "^18.11.0",

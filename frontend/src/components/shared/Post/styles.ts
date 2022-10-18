@@ -5,6 +5,7 @@ export const PostContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.gray2};
   border-radius: 8px;
   padding: 1rem;
+  scroll-snap-align: start;
 
   header {
     display: flex;

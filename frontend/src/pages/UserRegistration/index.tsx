@@ -1,49 +1,56 @@
 import { Input, Submit } from "@/components/layout/Form";
 import { api } from "@/services/api";
-import { FormEvent, useState } from "react";
 import { UserRegistrationContainer, UserRegistrationForm } from "./styles";
 
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+
+const schema = yup.object({
+  name: yup.string().required("Nome é obrigatório"),
+  email: yup.string().email().required("Email é obrigatório"),
+  password: yup
+    .string()
+    .min(6, "Senha deve conter no minímo 6 caracteres")
+    .required("Senha é obrigatória"),
+});
+
+type FormInputType = yup.InferType<typeof schema>;
+
 export function UserRegistration() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<FormInputType>({ resolver: yupResolver(schema) });
 
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-
-    const data = {
-      name,
-      email,
-      password,
-    };
-
+  async function onSubmit(data: FormInputType) {
     try {
-      await api.post("user", data);
-    } catch (error) {
-      console.log(error);
-    }
+      await api.post("/user", data);
+      console.log("Usuário criado");
+    } catch (error) {}
   }
 
   return (
     <UserRegistrationContainer>
-      <UserRegistrationForm onSubmit={handleSubmit}>
+      <UserRegistrationForm onSubmit={handleSubmit(onSubmit)}>
         <h1>Criar novo usuário</h1>
         <Input
           placeholder="Digite seu nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          error={errors.name}
+          {...register("name")}
         />
         <Input
           type="email"
           placeholder="Digite seu e-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          error={errors.email}
+          {...register("email")}
         />
         <Input
           type="password"
           placeholder="Digite sua senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          error={errors.password}
+          {...register("password")}
         />
 
         <Submit>Criar novo usuário</Submit>

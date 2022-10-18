@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const InputContainer = styled.div`
+interface InputContainerProps {
+  $error?: boolean;
+}
+
+export const InputContainer = styled.div<InputContainerProps>`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -31,6 +35,15 @@ export const InputContainer = styled.div`
 
     &:focus {
       outline-color: ${({ theme }) => theme.colors.greenLight};
+      border-color: ${({ theme }) => theme.colors.greenLight};
     }
+
+    &:invalid {
+      outline-color: ${({ theme }) => theme.colors.red};
+    }
+  }
+
+  .error {
+    color: ${({ theme }) => theme.colors.red};
   }
 `;
