@@ -21,7 +21,7 @@ export function UserRegistration() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormInputType>({ resolver: yupResolver(schema) });
 
   async function onSubmit(data: FormInputType) {
@@ -53,7 +53,7 @@ export function UserRegistration() {
           {...register("password")}
         />
 
-        <Submit>Criar novo usuário</Submit>
+        <Submit loading={isSubmitting}>Criar novo usuário</Submit>
       </UserRegistrationForm>
     </UserRegistrationContainer>
   );

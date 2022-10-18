@@ -8,6 +8,21 @@ import { HomeContainer, HomeForm } from "./styles";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { useAuth } from "@/hooks/useAuth";
 
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+
+const schema = yup.object({
+  name: yup.string().required("Nome é obrigatório"),
+  email: yup.string().email().required("Email é obrigatório"),
+  password: yup
+    .string()
+    .min(6, "Senha deve conter no minímo 6 caracteres")
+    .required("Senha é obrigatória"),
+});
+
+type FormInputType = yup.InferType<typeof schema>;
+
 export function Home() {
   const { me } = useAuth();
 

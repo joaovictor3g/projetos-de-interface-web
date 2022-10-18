@@ -5,6 +5,7 @@ export const SubmitButton = styled.button`
   background-color: ${({ theme }) => theme.colors.green};
   border: 0;
   color: ${({ theme }) => theme.colors.white};
+  max-height: 50px;
 
   width: max-content;
   padding: 1rem;
@@ -15,7 +16,16 @@ export const SubmitButton = styled.button`
   transition: background-color 0.2s;
   cursor: pointer;
 
-  &:hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover:not(:disabled) {
     background-color: ${({ theme }) => theme.colors.greenLight};
+  }
+
+  &:disabled {
+    filter: brightness(0.7);
   }
 `;
