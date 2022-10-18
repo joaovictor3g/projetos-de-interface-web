@@ -30,8 +30,7 @@ export const InputContainer = styled.div`
     }
 
     &:focus {
-      border: 1px solid ${({ theme }) => theme.colors.greenLight};
-      outline: 1px solid ${({ theme }) => theme.colors.greenLight};
+      outline-color: ${({ theme }) => theme.colors.greenLight};
     }
   }
 `;

@@ -39,6 +39,17 @@ export function Post({ data }: PostProps) {
     } catch (error) {}
   }
 
+  async function handleDeleteComment(commentId: string) {
+    try {
+      await api.delete(`/comment/${commentId}`);
+      setComments((oldComments) =>
+        oldComments.filter((comment) => comment.id !== commentId)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     if (data.id) {
       api
@@ -97,7 +108,11 @@ export function Post({ data }: PostProps) {
         </form>
 
         {comments.map((comment) => (
-          <Comment key={comment.id} data={comment} />
+          <Comment
+            key={comment.id}
+            data={comment}
+            deleteComment={handleDeleteComment}
+          />
         ))}
       </footer>
     </PostContainer>

@@ -1,7 +1,6 @@
-import { theme } from "@/styles";
 import styled from "styled-components";
 
-export const HomeContainer = styled.section`
+export const UserRegistrationContainer = styled.section`
   ${({ theme }) => theme.customs.wrapper};
   min-height: ${({ theme }) => ` calc(100vh - ${theme.customs.header.height})`};
 
@@ -10,7 +9,7 @@ export const HomeContainer = styled.section`
   justify-content: center;
 `;
 
-export const HomeForm = styled.form`
+export const UserRegistrationForm = styled.form`
   background-color: ${({ theme }) => theme.colors.gray2};
   max-width: 500px;
   width: 100%;
