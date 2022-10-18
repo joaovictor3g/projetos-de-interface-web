@@ -7,6 +7,7 @@ import { FeedContainer } from "./styles";
 
 export function Feed() {
   const [posts, setPosts] = useState<IPost[]>([]);
+
   useEffect(() => {
     api.get("post").then((response) => setPosts(response.data));
   }, []);

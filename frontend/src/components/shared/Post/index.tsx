@@ -9,13 +9,43 @@ import rehypeRaw from "rehype-raw";
 import { IPost } from "@/@types/post";
 import { difference as differenceToCreatedAt } from "@/utils/date";
 import { Comment } from "./Comment";
+import { FormEvent, useEffect, useState } from "react";
+import { api } from "@/services/api";
+import { IComment } from "@/@types/comment";
 interface PostProps {
   data: IPost;
 }
 
 export function Post({ data }: PostProps) {
+  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState<IComment[]>([]);
+
   const { createdAt } = data;
   const formattedCreatedAt = differenceToCreatedAt(new Date(createdAt));
+
+  async function handleCreateComment(event: FormEvent) {
+    event.preventDefault();
+
+    const _data = {
+      comment: newComment,
+      post: data.id,
+    };
+
+    try {
+      const response = await api.post("/comment", _data);
+      const newCommentCreated = response.data;
+      setComments((oldComments) => [...oldComments, newCommentCreated]);
+      setNewComment("");
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    if (data.id) {
+      api
+        .get(`/comment/${data.id}`)
+        .then((response) => setComments(response.data));
+    }
+  }, [data.id]);
 
   return (
     <PostContainer>
@@ -53,18 +83,22 @@ export function Post({ data }: PostProps) {
       </div>
 
       <footer>
-        <form>
+        <form onSubmit={handleCreateComment}>
           <div className="control">
             <Textarea
               placeholder="Escreva um comentário..."
               label="Deixe seu feedback:"
+              value={newComment}
+              onChange={({ target }) => setNewComment(target.value)}
             />
           </div>
 
           <Submit>Publicar</Submit>
         </form>
 
-        <Comment />
+        {comments.map((comment) => (
+          <Comment key={comment.id} data={comment} />
+        ))}
       </footer>
     </PostContainer>
   );
