@@ -1,11 +1,13 @@
 import { MongoPost, Post } from "../@types/post";
+import { userViewRender } from "./user.view";
 
 function render(post: MongoPost): Post {
   return {
     id: post._id,
     likes: post.likes,
     text: post.text,
-    user: post.user,
+    user: userViewRender(post.user as any),
+    createdAt: post.createdAt,
   };
 }
 

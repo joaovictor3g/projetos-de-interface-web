@@ -4,13 +4,13 @@ import { MongoPost } from "../@types/post";
 import { postModel } from "../model/post.model";
 import { postViewRender, postViewRenderMany } from "../view/post.view";
 
-import jwt from "jsonwebtoken";
-import { MongoUser } from "../@types/user";
-
 export const postController = {
   async index(req: Request, res: Response) {
     try {
-      const posts = await postModel.find<MongoPost>();
+      const posts = await postModel
+        .find<MongoPost>()
+        .populate("user")
+        .sort({ createdAt: "desc" });
       return res.json(postViewRenderMany(posts));
     } catch {}
   },

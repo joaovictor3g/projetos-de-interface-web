@@ -4,44 +4,45 @@ import { MongoComment } from "../@types/comment";
 import { commentModel } from "../model/comment.model";
 import { commentViewRender, commentViewRenderMany } from "../view/comment.view";
 
-import jwt from "jsonwebtoken";
-import { MongoUser } from "../@types/user";
-
 export const commentController = {
   async index(req: Request, res: Response) {
+    const { postId } = req.params;
+
     try {
       const comments = await commentModel
-        .find<MongoComment>()
-        .populate("user")
-        .populate("post");
+        .find<MongoComment>({ post: postId })
+        .populate("user");
 
       return res.json(commentViewRenderMany(comments));
     } catch {}
   },
 
   async create(req: Request, res: Response) {
-    const { post } = req.body;
+    const { post, comment } = req.body;
     const userId = req.userId;
 
     try {
-      await commentModel.create({
+      const newComment = await commentModel.create({
         user: userId,
         post,
+        comment,
       });
 
-      return res
-        .status(201)
-        .json({ message: "Comentário criada com sucesso!" });
+      const commentCreated = await commentModel
+        .findOne<MongoComment>({ _id: newComment._id })
+        .populate("user");
+
+      return res.status(201).json(commentViewRender(commentCreated));
     } catch {}
   },
 
   async show(req: Request, res: Response) {
-    const { id } = req.params;
+    const { postId } = req.params;
+
     try {
       const comment = await commentModel
-        .findOne<MongoComment>({ _id: id })
-        .populate("user")
-        .populate("post");
+        .findOne<MongoComment>({ post: postId })
+        .populate("user");
 
       if (!comment)
         return res.status(404).json({ message: "Comentário não encontrado" });

@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-import { Post } from "../@types/post";
 
 const postSchema = new Schema({
   text: {
@@ -14,7 +13,12 @@ const postSchema = new Schema({
 
   user: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: new Date(),
   },
 });
 
