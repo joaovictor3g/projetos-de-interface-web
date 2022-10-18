@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface InputContainerProps {
   $error?: boolean;
@@ -19,7 +19,8 @@ export const InputContainer = styled.div<InputContainerProps>`
   input {
     min-width: 200px;
     background: ${({ theme }) => theme.colors.gray1};
-    border: 0;
+    border: none;
+    outline: none;
     border-radius: 8px;
     height: 50px;
     padding: 1rem;
@@ -33,14 +34,16 @@ export const InputContainer = styled.div<InputContainerProps>`
       color: ${({ theme }) => theme.colors.gray4};
     }
 
-    &:focus {
-      outline-color: ${({ theme }) => theme.colors.greenLight};
-      border-color: ${({ theme }) => theme.colors.greenLight};
-    }
-
-    &:invalid {
-      outline-color: ${({ theme }) => theme.colors.red};
-    }
+    ${({ $error }) =>
+      $error
+        ? css`
+            outline: 2px solid ${({ theme }) => theme.colors.red};
+          `
+        : css`
+            &:focus {
+              outline: 2px solid ${({ theme }) => theme.colors.greenLight};
+            }
+          `};
   }
 
   .error {
