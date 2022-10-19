@@ -1,4 +1,5 @@
 import { IPost } from "@/@types/post";
+import { CreatePostModal } from "@/components/layout/CreatePostModal";
 import { Post } from "@/components/shared/Post";
 import { ProfileBox } from "@/components/shared/ProfileBox";
 import { useIntersection } from "@/hooks/useIntersection";
@@ -48,6 +49,14 @@ export function Feed() {
         {posts.map((post) => (
           <Post key={post.id} data={post} />
         ))}
+
+        {posts.length === 0 && (
+          <div className="empty-posts">
+            <strong>Sem posts ainda!</strong>
+            <span>Comece agora, clicando no botão abaixo</span>
+            <CreatePostModal />
+          </div>
+        )}
 
         {hasMore && (
           <p ref={instanceRef} className="load-more">

@@ -72,8 +72,6 @@ export function Post({ data }: PostProps) {
           rehypePlugins={[rehypeRaw]}
           components={{
             code({ node, inline, className, children, ...props }) {
-              console.log({ inline, className });
-
               const match = /language-(\w+)/.exec(className || "");
               return !inline && match ? (
                 <SyntaxHighlighter

@@ -17,4 +17,32 @@ export const FeedContainer = styled.section`
     color: ${({ theme }) => theme.colors.green};
     font-weight: bold;
   }
+
+  .empty-posts {
+    min-height: ${({ theme }) =>
+      `calc(100vh - ${theme.customs.header.height})`};
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    strong,
+    span {
+      color: ${({ theme }) => theme.colors.white};
+    }
+
+    strong {
+      font-size: 2rem;
+    }
+
+    & > span {
+      font-size: 1.5rem;
+    }
+
+    button {
+      width: max-content;
+    }
+  }
 `;
