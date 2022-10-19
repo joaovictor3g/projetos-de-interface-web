@@ -6,12 +6,25 @@ import { postViewRender, postViewRenderMany } from "../view/post.view";
 
 export const postController = {
   async index(req: Request, res: Response) {
+    const { page, pageSize } = req.query as unknown as {
+      page: number;
+      pageSize: number;
+    };
+
     try {
       const posts = await postModel
         .find<MongoPost>()
         .populate("user")
-        .sort({ createdAt: "desc" });
-      return res.json(postViewRenderMany(posts));
+        .sort({ createdAt: "desc" })
+        .skip(page * pageSize)
+        .limit(pageSize);
+
+      const totalPages = await postModel.find().count();
+
+      return res.json({
+        totalPages: Math.ceil(totalPages / pageSize),
+        posts: postViewRenderMany(posts),
+      });
     } catch {}
   },
 

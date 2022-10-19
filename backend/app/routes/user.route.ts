@@ -9,7 +9,7 @@ routes.use("/user", authController.check);
 routes.get("/user", userController.index);
 routes.delete("/user/:id", userController.delete);
 
-routes.use("/user-by-id", authController.check);
-routes.get("/user-by-id", userController.show);
+routes.use("/me", authController.check);
+routes.get("/me", userController.show);
 
 export { routes as userRoutes };
