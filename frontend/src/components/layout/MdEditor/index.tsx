@@ -7,7 +7,6 @@ interface MdEditorProps {
 }
 
 export function MdEditor({ onChange, value }: MdEditorProps) {
-
   return (
     <MDEditorContainer>
       <UIWMDEditor
@@ -16,6 +15,7 @@ export function MdEditor({ onChange, value }: MdEditorProps) {
         value={value}
         onChange={onChange}
         className="uiw-mdeditor"
+        fullscreen={false}
       />
     </MDEditorContainer>
   );

@@ -2,13 +2,12 @@ import { CreatePostButton, ModalContent } from "./styles";
 import * as Dialog from "@radix-ui/react-dialog";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Modal } from "@/components/shared/Modal";
-import { Textarea, Input, Submit } from "../Form";
+import { Input, Submit } from "../Form";
 import { MdEditor } from "../MdEditor";
 import { FormEvent, useState } from "react";
 import { api } from "@/services/api";
 
 export function CreatePostModal() {
-  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   async function handleSubmit(event: FormEvent) {
