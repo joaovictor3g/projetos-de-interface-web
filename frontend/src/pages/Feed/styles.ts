@@ -11,4 +11,10 @@ export const FeedContainer = styled.section`
     flex-direction: column;
     gap: 2rem;
   }
+
+  .load-more {
+    text-align: center;
+    color: ${({ theme }) => theme.colors.green};
+    font-weight: bold;
+  }
 `;
