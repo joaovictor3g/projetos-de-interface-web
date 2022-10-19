@@ -54,7 +54,7 @@ export function Feed() {
           <div className="empty-posts">
             <strong>Sem posts ainda!</strong>
             <span>Comece agora, clicando no botão abaixo</span>
-            <CreatePostModal />
+            <CreatePostModal onSuccess={fetchPosts} />
           </div>
         )}
 
