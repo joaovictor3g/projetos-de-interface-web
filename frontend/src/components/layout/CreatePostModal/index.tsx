@@ -16,7 +16,6 @@ interface CreatePostModalProps {
 }
 
 const schema = yup.object({
-  subject: yup.string().required("O assunto do post é obrigatório"),
   text: yup.string().required("O conteúdo do post é obrigatório"),
 });
 
@@ -24,8 +23,7 @@ type FormInputsData = yup.InferType<typeof schema>;
 
 export function CreatePostModal({ onSuccess, onError }: CreatePostModalProps) {
   const {
-    register,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
     handleSubmit,
     control,
     reset,
@@ -55,19 +53,17 @@ export function CreatePostModal({ onSuccess, onError }: CreatePostModalProps) {
           <h1>Criar um novo post</h1>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              label="Assunto do post:"
-              placeholder="Uma breve descrição"
-              error={errors.subject}
-              {...register("subject")}
-            />
             <div className="control">
               <label htmlFor="">Escreva seu post:</label>
               <Controller
                 name="text"
                 control={control}
-                render={({ field }) => (
-                  <MdEditor value={field.value} onChange={field.onChange} />
+                render={({ field, formState: { errors } }) => (
+                  <MdEditor
+                    value={field.value}
+                    onChange={field.onChange}
+                    error={errors.text}
+                  />
                 )}
               />
             </div>

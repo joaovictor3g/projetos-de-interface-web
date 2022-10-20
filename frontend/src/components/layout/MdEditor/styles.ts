@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const MDEditorContainer = styled.div`
+interface MDEditorContainerProps {
+  $isInvalid?: boolean;
+}
+
+export const MDEditorContainer = styled.div<MDEditorContainerProps>`
   .uiw-mdeditor {
     background-color: ${({ theme }) => theme.colors.gray1};
     border: 0;
@@ -15,6 +19,7 @@ export const MDEditorContainer = styled.div`
 
       textarea {
         color: ${({ theme }) => theme.colors.white};
+        caret-color: white;
       }
     }
 
@@ -43,5 +48,20 @@ export const MDEditorContainer = styled.div`
         }
       }
     }
+
+    ${({ $isInvalid }) =>
+      $isInvalid
+        ? css`
+            outline: 2px solid ${({ theme }) => theme.colors.red};
+          `
+        : css`
+            &:focus {
+              outline: 2px solid ${({ theme }) => theme.colors.greenLight};
+            }
+          `};
+  }
+
+  .error {
+    color: ${({ theme }) => theme.colors.red};
   }
 `;
