@@ -12,6 +12,8 @@ import { Comment } from "./Comment";
 import { FormEvent, useEffect, useState } from "react";
 import { api } from "@/services/api";
 import { IComment } from "@/@types/comment";
+
+import { ThumbsUp } from "phosphor-react";
 interface PostProps {
   data: IPost;
 }
@@ -115,6 +117,11 @@ export function Post({ data }: PostProps) {
           />
         ))}
       </footer>
+
+      <button className="like">
+        <ThumbsUp size={17} />
+        Aplaudir • {data.likes}
+      </button>
     </PostContainer>
   );
 }

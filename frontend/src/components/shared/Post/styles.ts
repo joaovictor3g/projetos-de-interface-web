@@ -41,6 +41,25 @@ export const PostContainer = styled.div`
       gap: 1rem;
     }
   }
+
+  .like {
+    width: max-content;
+    background-color: transparent;
+    border: 0;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1rem;
+    color: ${({ theme }) => theme.colors.gray5};
+    transition: color 0.2s;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.green};
+    }
+  }
 `;
 
 export const Markdown = styled(ReactMarkdown)`
