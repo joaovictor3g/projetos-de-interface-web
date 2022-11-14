@@ -1,7 +1,6 @@
 import { Input, Submit } from "@/components/layout/Form";
 import { api } from "@/services/api";
 import { setToken } from "@/utils/localStorage";
-import { FormEvent, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { HomeContainer, HomeForm } from "./styles";
 
@@ -13,7 +12,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
 const schema = yup.object({
-  name: yup.string().required("Nome é obrigatório"),
   email: yup.string().email().required("Email é obrigatório"),
   password: yup
     .string()
@@ -26,19 +24,15 @@ type FormInputType = yup.InferType<typeof schema>;
 export function Home() {
   const { me } = useAuth();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputType>({ resolver: yupResolver(schema) });
 
   const navigate = useNavigate();
 
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-
-    const data = {
-      email,
-      password,
-    };
-
+  async function onSubmit(data: FormInputType) {
     try {
       const response = await api.post("login", data);
       const { token } = response.data;
@@ -52,20 +46,20 @@ export function Home() {
 
   return (
     <HomeContainer>
-      <HomeForm onSubmit={handleSubmit}>
+      <HomeForm onSubmit={handleSubmit(onSubmit)}>
         <h1>Faça login</h1>
 
         <Input
           type="email"
           placeholder="Digite seu e-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          error={errors.email}
+          {...register("email")}
         />
         <Input
           type="password"
           placeholder="Digite sua senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          error={errors.password}
+          {...register("password")}
         />
         <Link to="/user-registration" className="user-registration-link">
           Criar novo usuário

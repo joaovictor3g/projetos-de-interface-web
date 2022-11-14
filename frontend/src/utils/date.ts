@@ -15,7 +15,9 @@ function mountPhrase(time: number, flag: "minutes" | "hours" | "days") {
 }
 
 export function difference(date: Date) {
-  const resultDays = dayjs().subtract(date.getDay(), "day").get("day");
+  const resultDays = dayjs().subtract(date.getDay(), "days").get("days");
+
+  console.log(resultDays);
 
   if (resultDays === 0) {
     const resultHours = dayjs().subtract(date.getHours(), "hours").get("hours");

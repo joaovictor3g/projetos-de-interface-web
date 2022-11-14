@@ -2,7 +2,7 @@ import { getToken } from "@/utils/localStorage";
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: "https://sistema-matricula-api.up.railway.app",
 });
 
 api.interceptors.request.use(

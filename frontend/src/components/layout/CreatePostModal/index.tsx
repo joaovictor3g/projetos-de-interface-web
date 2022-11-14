@@ -4,23 +4,39 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import { Modal } from "@/components/shared/Modal";
 import { Input, Submit } from "../Form";
 import { MdEditor } from "../MdEditor";
-import { FormEvent, useState } from "react";
 import { api } from "@/services/api";
 
-export function CreatePostModal() {
-  const [content, setContent] = useState("");
+import * as yup from "yup";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+interface CreatePostModalProps {
+  onSuccess?: () => void;
+  onError?: () => void;
+}
 
-    const data = {
-      text: content,
-      likes: 0,
-    };
+const schema = yup.object({
+  text: yup.string().required("O conteúdo do post é obrigatório"),
+});
 
+type FormInputsData = yup.InferType<typeof schema>;
+
+export function CreatePostModal({ onSuccess, onError }: CreatePostModalProps) {
+  const {
+    formState: { isSubmitting },
+    handleSubmit,
+    control,
+    reset,
+  } = useForm<FormInputsData>({ resolver: yupResolver(schema) });
+
+  async function onSubmit(data: FormInputsData) {
     try {
-      await api.post("post", data);
-    } catch (error) {}
+      await api.post("post", { ...data, likes: 0 });
+      reset();
+      onSuccess?.();
+    } catch (error) {
+      onError?.();
+    }
   }
 
   return (
@@ -36,16 +52,22 @@ export function CreatePostModal() {
         <ModalContent>
           <h1>Criar um novo post</h1>
 
-          <form onSubmit={handleSubmit}>
-            <Input label="Assunto do post:" placeholder="Uma breve descrição" />
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="control">
               <label htmlFor="">Escreva seu post:</label>
-              <MdEditor
-                value={content}
-                onChange={(value) => setContent(value as string)}
+              <Controller
+                name="text"
+                control={control}
+                render={({ field, formState: { errors } }) => (
+                  <MdEditor
+                    value={field.value}
+                    onChange={field.onChange}
+                    error={errors.text}
+                  />
+                )}
               />
             </div>
-            <Submit>Criar novo post</Submit>
+            <Submit loading={isSubmitting}>Criar novo post</Submit>
           </form>
         </ModalContent>
       </Modal>
