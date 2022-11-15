@@ -6,7 +6,7 @@ import { FeedContainer } from "./styles";
 export function Feed() {
   return (
     <FeedContainer>
-      {/* <ProfileBox /> */}
+      <ProfileBox />
       <div className="posts-wrapper">
         {infoPosts.map((post) => (
           <Post key={post.id} data={post} />

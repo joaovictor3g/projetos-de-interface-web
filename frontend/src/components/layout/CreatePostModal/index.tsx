@@ -5,10 +5,13 @@ import { Modal } from "@/components/shared/Modal";
 import { Input, Submit } from "../Form";
 import { MdEditor } from "../MdEditor";
 import { FormEvent, useState } from "react";
-import { api } from "@/services/api";
+// import { api } from "@/services/api";
+import { useNavigate } from "react-router-dom";
 
 export function CreatePostModal() {
   const [content, setContent] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -18,13 +21,15 @@ export function CreatePostModal() {
       likes: 0,
     };
 
-    try {
-      await api.post("post", data);
-    } catch (error) {}
+    // try {
+    //   await api.post("post", data);
+    // } catch (error) {}
+
+    setModalOpen(false);
   }
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={modalOpen} onOpenChange={(open) => setModalOpen(open)}>
       <Dialog.Trigger asChild>
         <CreatePostButton>
           <PlusIcon width={24} height={24} />
