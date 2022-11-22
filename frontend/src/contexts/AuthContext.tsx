@@ -1,5 +1,11 @@
 import { api } from "@/services/api";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export type User = {
@@ -23,14 +29,14 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  async function me() {
+  const me = useCallback(async () => {
     try {
       const response = await api.get("/me");
       setUser(response.data);
     } catch (err: unknown) {
       console.log(err);
     }
-  }
+  }, []);
 
   useEffect(() => {
     me();

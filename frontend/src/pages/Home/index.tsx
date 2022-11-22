@@ -37,7 +37,6 @@ export function Home() {
       const response = await api.post("login", data);
       const { token } = response.data;
       setToken(token);
-      await me();
       navigate("/feed");
     } catch (error) {
       console.log(error);

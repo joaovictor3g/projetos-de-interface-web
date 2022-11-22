@@ -11,7 +11,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 interface CreatePostModalProps {
-  onSuccess?: () => void;
+  onSuccess?: () => Promise<void>;
   onError?: () => void;
 }
 
@@ -33,7 +33,7 @@ export function CreatePostModal({ onSuccess, onError }: CreatePostModalProps) {
     try {
       await api.post("post", { ...data, likes: 0 });
       reset();
-      onSuccess?.();
+      await onSuccess?.();
     } catch (error) {
       onError?.();
     }

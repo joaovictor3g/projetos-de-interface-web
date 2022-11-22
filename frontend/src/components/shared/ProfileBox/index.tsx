@@ -2,9 +2,13 @@ import { Avatar } from "../Avatar";
 import { ProfileBoxContainer, ProfileWrapper } from "./styles";
 import { Edit } from "@/icons/Edit";
 import { useAuth } from "@/hooks/useAuth";
-import { CreatePostModal } from "@/components/layout/CreatePostModal";
+import { ReactNode } from "react";
 
-export function ProfileBox() {
+interface ProfileBoxProps {
+  children: ReactNode;
+}
+
+export function ProfileBox({ children }: ProfileBoxProps) {
   const { user } = useAuth();
 
   return (
@@ -16,7 +20,7 @@ export function ProfileBox() {
             <Edit />
             Editar seu perfil
           </button>
-          <CreatePostModal />
+          {children}
         </div>
       </ProfileWrapper>
     </ProfileBoxContainer>

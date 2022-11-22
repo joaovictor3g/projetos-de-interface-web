@@ -14,11 +14,11 @@ export function Feed() {
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
 
-  async function fetchPosts() {
+  async function fetchPosts(_page = 0) {
     try {
       const response = await api.get(`post`, {
         params: {
-          page,
+          page: _page,
           pageSize: 1,
         },
       });
@@ -35,7 +35,7 @@ export function Feed() {
   }
 
   useEffect(() => {
-    fetchPosts();
+    fetchPosts(page);
   }, [page]);
 
   useEffect(() => {
@@ -44,7 +44,9 @@ export function Feed() {
 
   return (
     <FeedContainer>
-      <ProfileBox />
+      <ProfileBox>
+        <CreatePostModal onSuccess={() => fetchPosts(0)} />
+      </ProfileBox>
       <div className="posts-wrapper">
         {posts.map((post) => (
           <Post key={post.id} data={post} />
