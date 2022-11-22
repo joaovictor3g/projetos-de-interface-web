@@ -8,9 +8,5 @@ import { router } from "./router";
 interface RouterProviderProps extends Omit<RRDRouterProviderProps, "router"> {}
 
 export function RouterProvider({ ...props }: RouterProviderProps) {
-  return (
-    <AuthContextProvider>
-      <RRDRouterProvider router={router} {...props} />
-    </AuthContextProvider>
-  );
+  return <RRDRouterProvider router={router} {...props} />;
 }
