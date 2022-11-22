@@ -1,19 +1,26 @@
 import { GlobalStyle, theme } from "@/styles";
 import { ThemeProvider } from "styled-components";
 import { Header } from "@/components/shared/Header";
-import { AuthContextProvider } from "./contexts/AuthContext";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "./hooks/useAuth";
+import { useEffect } from "react";
 
 export function App() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate("/feed");
+    else navigate("/");
+  }, [user]);
+
   return (
-    <AuthContextProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Header />
-        <main>
-          <Outlet />
-        </main>
-      </ThemeProvider>
-    </AuthContextProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+    </ThemeProvider>
   );
 }

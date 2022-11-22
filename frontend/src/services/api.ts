@@ -1,8 +1,10 @@
 import { getToken } from "@/utils/localStorage";
 import axios from "axios";
 
+const baseURL = import.meta.env.VITE_API_BASE_URL;
+
 export const api = axios.create({
-  baseURL: "https://sistema-matricula-api.up.railway.app",
+  baseURL,
 });
 
 api.interceptors.request.use(
