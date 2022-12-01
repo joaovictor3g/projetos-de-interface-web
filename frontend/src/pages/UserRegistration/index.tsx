@@ -5,6 +5,7 @@ import { UserRegistrationContainer, UserRegistrationForm } from "./styles";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
   name: yup.string().required("Nome é obrigatório"),
@@ -24,10 +25,12 @@ export function UserRegistration() {
     formState: { errors, isSubmitting },
   } = useForm<FormInputType>({ resolver: yupResolver(schema) });
 
+  const navigate = useNavigate();
+
   async function onSubmit(data: FormInputType) {
     try {
       await api.post("/user", data);
-      console.log("Usuário criado");
+      navigate("/");
     } catch (error) {}
   }
 

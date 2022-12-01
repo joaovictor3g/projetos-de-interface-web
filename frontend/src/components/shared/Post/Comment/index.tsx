@@ -3,7 +3,6 @@ import { CommentContainer, CommentBox, CommentControls } from "./styles";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { IComment } from "@/@types/comment";
 import { useAuth } from "@/hooks/useAuth";
-import { api } from "@/services/api";
 
 interface CommentProps {
   data: IComment;
@@ -38,8 +37,6 @@ export function Comment({ data, deleteComment }: CommentProps) {
 
           <p className="content">{data.comment}</p>
         </CommentBox>
-
-        <button className="like">Aplaudir • 03</button>
       </CommentControls>
     </CommentContainer>
   );
