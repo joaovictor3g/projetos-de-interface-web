@@ -2,4 +2,4 @@
 /mocks
 /dist
 
-.env
+.env.*
